@@ -37,9 +37,23 @@ let rec plus (xs: List<int>) (xs': List<int>) =
     | _ -> failwith "plus failed!"
 
 // Assignment 5
+// [1;1;2;3] [1;1;1;2;2] = []
+// [1;2;3] [1;1;2;2] = []
+// [2;3] [1;2;2] = []
+// [2;3] [2;2] = []
+// [3] [2] = []
+// [3] [] = []
+// [] [] = [3]
+
+// [1;1;1;2;2] [1;1;2;3] = []
+// [1;1;2;2] [1;2;3] = []
+// [1;2;2] [2;3] = []
+// [2;2] [2;3] = [1]
+// [2] [3] = [1]
+// [] [3] = [1;2]
 let rec minus (xs: List<int>) (xs': List<int>) =
     match xs, xs' with
-    | [], _ -> []
+    | [], _
     | _, [] -> xs
     | ha :: ta, hb :: tb when ha = hb -> minus ta tb
     | ha :: _, hb :: tb when ha > hb -> minus xs tb

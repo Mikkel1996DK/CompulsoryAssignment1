@@ -16,6 +16,6 @@ let main argv =
     let resD = Assignments.plus [1;1;2] [1;2;4]
     printfn "Result D: %A" resD
 
-    let resE = Assignments.minus [1;1;1;2;2]  [1;1;2;3] 
+    let resE = Assignments.minus [1;1;1;2;2]  [1;1;2;3]
     printfn "Result E: %A" resE
     0 
