@@ -1,47 +1,47 @@
 ﻿module Assignments
 
 // Assignment 1
-let rec count numList key =
-    match numList with
+let rec count (xs: List<int>) (x: int) =
+    match xs with
     | [] -> 0
-    | h :: t when h < key -> count t key
-    | h :: t when h = key -> 1 + (count t key)
+    | h :: t when h < x -> count t x
+    | h :: t when h = x -> 1 + (count t x)
     | _ -> 0
 
 // Assignment 2
-let rec insert numList key =
-    match numList with
-    | [] -> [ key ]
-    | h :: t when key <= h -> [ key ] @ numList
-    | h :: t when key > h -> [ h ] @ insert t key
+let rec insert (xs: List<int>) (x: int) =
+    match xs with
+    | [] -> [ x ]
+    | h :: t when x <= h -> [ x ] @ xs
+    | h :: t when x > h -> [ h ] @ insert t x
     | _ -> failwith "insert failed!"
 
 // Assignment 3
-let rec intersect listA listB =
-    match listA, listB with
+let rec intersect (xs: List<int>) (xs': List<int>) =
+    match xs, xs' with
     | [], _
     | _, [] -> []
     | ha :: ta, hb :: tb when ha = hb -> [ ha ] @ intersect ta tb
-    | ha :: ta, hb :: _ when ha < hb -> intersect ta listB
-    | ha :: _, hb :: tb when ha > hb -> intersect listA tb
+    | ha :: ta, hb :: _ when ha < hb -> intersect ta xs'
+    | ha :: _, hb :: tb when ha > hb -> intersect xs tb
     | _ -> failwith "intersect failed!"
 
 // Assignment 4
-let rec plus listA listB =
-    match listA, listB with
-    | [], _ -> listA @ listB
-    | _, [] -> listB @ listA
-    | ha :: ta, hb :: tb when ha = hb -> [ ha ] @ plus ta listB
-    | ha :: ta, hb :: tb when ha > hb -> [ hb ] @ plus listA tb
-    | ha :: ta, hb :: tb when ha < hb -> [ ha ] @ plus ta listB
+let rec plus (xs: List<int>) (xs': List<int>) =
+    match xs, xs' with
+    | [], _ -> xs @ xs'
+    | _, [] -> xs' @ xs
+    | ha :: ta, hb :: _ when ha = hb -> [ ha ] @ plus ta xs'
+    | ha :: _, hb :: tb when ha > hb -> [ hb ] @ plus xs tb
+    | ha :: ta, hb :: _ when ha < hb -> [ ha ] @ plus ta xs'
     | _ -> failwith "plus failed!"
 
 // Assignment 5
-let rec minus listA listB =
-    match listA, listB with
+let rec minus (xs: List<int>) (xs': List<int>) =
+    match xs, xs' with
     | [], _ -> []
-    | _, [] -> listA
+    | _, [] -> xs
     | ha :: ta, hb :: tb when ha = hb -> minus ta tb
-    | ha :: ta, hb :: tb when ha > hb -> minus listA tb
-    | ha :: ta, hb :: tb when ha < hb -> [ ha ] @ minus ta listB
+    | ha :: _, hb :: tb when ha > hb -> minus xs tb
+    | ha :: ta, hb :: _ when ha < hb -> [ ha ] @ minus ta xs'
     | _ -> failwith "minus failed!"
